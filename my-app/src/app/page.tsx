@@ -1,4 +1,5 @@
 import { Button, Input } from "antd";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
         <h1>RusticNests</h1>
         <Button type="primary">Primary Button</Button>
         <Button>default Button</Button>
-
+        <UserButton />
         <Input placeholder="basic usage" className="w-40"></Input>
       </div>
     </>
