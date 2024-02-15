@@ -1,7 +1,9 @@
 import { Button, Input } from "antd";
 import { UserButton, currentUser } from "@clerk/nextjs";
+import { getCurrentUserFromMongoDB } from "@/actions/users";
 
 export default async function Home() {
+  await getCurrentUserFromMongoDB();
   const loggedInUser = await currentUser();
 
   const username = loggedInUser?.username
