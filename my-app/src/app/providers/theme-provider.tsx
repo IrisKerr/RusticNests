@@ -11,7 +11,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
             Button: {
               controlHeight: 40,
               boxShadow: "none",
-              colorPrimaryActive: "#EEB397",
+              colorPrimaryActive: "#77ba9b",
               controlOutline: "none",
               colorBorder: "#77ba9b",
             },

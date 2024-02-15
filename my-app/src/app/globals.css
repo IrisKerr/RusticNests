@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Quattrocento Sans", sans-serif !important;
+}
+
+.cl-internal-b3fm6y {
+  background-color: #559f7d;
+}
+
+.cl-card {
+  border-radius: 0.2rem;
+}

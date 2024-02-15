@@ -16,7 +16,7 @@ export default async function Home() {
         <h1>RusticNests</h1>
         <Button type="primary">Primary Button</Button>
         <Button>default Button</Button>
-        <UserButton />
+        <UserButton afterSignOutUrl="/sign-in" signInUrl="/sign-in" />
         <span>User id : {loggedInUser?.id}</span>
         <span>Username : {username}</span>
         <span>Email : {loggedInUser?.emailAddresses[0].emailAddress}</span>
