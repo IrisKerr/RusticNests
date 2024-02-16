@@ -1,7 +1,11 @@
 import React from "react";
 import { UserButton } from "@clerk/nextjs";
 
-function Header({ currentUserData }: { currentUserData: any }) {
+interface HeaderProps {
+  currentUserData: any;
+}
+
+function Header({ currentUserData }: HeaderProps) {
   return (
     <div className="bg-primary p-3 flex justify-between items-center rounded-b">
       <h1 className="text-2xl text-white font-bold">RusticNests</h1>
