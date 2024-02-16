@@ -5,7 +5,7 @@ interface Props {}
 function Account(props: Props) {
   const {} = props;
 
-  return <div>account</div>;
+  return <div>Account</div>;
 }
 
 export default Account;

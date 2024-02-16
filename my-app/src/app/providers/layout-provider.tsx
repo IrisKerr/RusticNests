@@ -6,12 +6,14 @@ import { message } from "antd";
 import { User } from "@prisma/client";
 import { usePathname } from "next/navigation";
 import Loader from "../components/Loader";
+import { userMenu, adminMenu } from "@/roles.ts/roles";
 
 function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [currentUserData, setCurrentUserData] = React.useState<User | null>(
     null
   );
   const [isLoading, setisLoading] = React.useState<boolean>(false);
+  const [menuToShow, setmenuToShow] = React.useState<any>(null);
 
   const pathname = usePathname();
   const isPublicRoute = ["sign-in", "sign-up"].includes(pathname.split("/")[1]);
@@ -24,6 +26,11 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
           throw new Error(response.error.message);
         }
         setCurrentUserData(response.data);
+        if (response.data.isAdmin === true) {
+          setmenuToShow(adminMenu);
+        } else {
+          setmenuToShow(userMenu);
+        }
       })
       .catch((error) => {
         message.error(error.message);
@@ -46,7 +53,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
         </>
       ) : (
         <div className="lg:px-20 px-5">
-          <Header currentUserData={currentUserData} />
+          <Header currentUserData={currentUserData} menuToShow={menuToShow} />
           {isLoading && <Loader />}
           {!isLoading && <div className="py-5">{children}</div>}
         </div>
