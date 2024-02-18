@@ -1,3 +1,3 @@
 export default async function Home() {
-  return <div>Homepage</div>;
+  return <div className="flex justify-between">Homepage</div>;
 }

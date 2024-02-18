@@ -6,14 +6,14 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
     <>
       <ConfigProvider
         theme={{
-          token: { colorPrimary: "#77ba9b", borderRadius: 2 },
+          token: { colorPrimary: "#9D957F", borderRadius: 2 },
           components: {
             Button: {
               controlHeight: 40,
               boxShadow: "none",
-              colorPrimaryActive: "#77ba9b",
+              colorPrimaryActive: "#9D957F",
               controlOutline: "none",
-              colorBorder: "#77ba9b",
+              colorBorder: "#9D957F",
             },
             Input: {
               controlHeight: 42,

@@ -1,7 +1,10 @@
+/* import the font styles before the tailwind imports, else it will not apply */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Protest+Riot&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 html,
 body {
   margin: 0;
@@ -10,7 +13,7 @@ body {
 
 * {
   box-sizing: border-box;
-  font-family: "Quattrocento Sans", sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 .cl-internal-b3fm6y {
