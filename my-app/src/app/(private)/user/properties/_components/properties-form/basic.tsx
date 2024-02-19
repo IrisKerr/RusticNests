@@ -12,7 +12,6 @@ function Basic({
   const onFinish = (values: any) => {
     setfinalValues({ ...finalValues, basic: values });
     setCurrentStep(currentStep + 1);
-    console.log(setfinalValues);
   };
 
   return (

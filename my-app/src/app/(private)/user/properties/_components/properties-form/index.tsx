@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Steps } from "antd";
 import Basic from "./basic";
 import Location from "./location";
@@ -38,6 +38,11 @@ function PropertiesForm() {
     { title: "Media", content: <Media {...commonPropsforSetps} /> },
     { title: "Contact", content: <Contact {...commonPropsforSetps} /> },
   ];
+
+  useEffect(() => {
+    console.log(finalValues);
+  }, [finalValues]);
+
   return (
     <div>
       <Steps current={currentStep} items={steps} />
