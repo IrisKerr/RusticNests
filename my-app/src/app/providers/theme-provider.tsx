@@ -20,6 +20,16 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
               boxShadow: "none",
               activeShadow: "none",
             },
+            Select: {
+              controlHeight: 42,
+              boxShadow: "none",
+              controlOutline: "none",
+            },
+            InputNumber: {
+              controlHeight: 42,
+              boxShadow: "none",
+              activeShadow: "none",
+            },
           },
         }}
       >
