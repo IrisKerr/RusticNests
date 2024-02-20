@@ -2,20 +2,29 @@ import React from "react";
 import { PropertiesFormStepProps } from ".";
 import { Button, Form, Input, Select } from "antd";
 import PhoneInput from "antd-phone-input";
-import FormItem from "antd/es/form/FormItem";
+import { UploadfilesToFirebaseAndReturnUrls } from "@/helpers/upload-media";
 
 function Contact({
   currentStep,
   setCurrentStep,
   finalValues,
-  setFinalValues,
 }: PropertiesFormStepProps) {
-  const onFinish = (values: any) => {
-    const tempFinalValues = { ...finalValues, contact: values };
-    console.log(tempFinalValues);
+  const onFinish = async (values: any) => {
+    try {
+      const tempFinalValues = { ...finalValues, contact: values };
+      const tempMedia = tempFinalValues.media;
+      tempMedia.images = await UploadfilesToFirebaseAndReturnUrls(
+        tempMedia.newlyUploadedFiles
+      );
+      tempFinalValues.media = tempMedia;
+      console.log(tempFinalValues);
+    } catch (error) {
+      throw new Error();
+    }
   };
 
-  const validator = (_, { valid }) => {
+  // validator from antd-phone-input
+  const validator = ({ valid }: { valid: () => boolean }) => {
     // if (valid(true)) return Promise.resolve(); // strict validation
     if (valid()) return Promise.resolve(); // non-strict validation
     return Promise.reject("Invalid phone number");
@@ -31,7 +40,7 @@ function Contact({
         <Form.Item
           name="ownerName"
           label="Owner Name"
-          rules={[{ required: true, message: "Please enter the owner Name!" }]}
+          rules={[{ required: true, message: "Please enter the Owner Name!" }]}
         >
           <Input className="w-full" placeholder="Owner Name" />
         </Form.Item>
@@ -40,18 +49,18 @@ function Contact({
           name="ownerEmail"
           label="Owner Email"
           rules={[
-            { required: true, message: "Please enter the owner email!" },
+            { required: true, message: "Please enter the Owner Email!" },
             {
               type: "email",
-              message: "Please enter a valid email address!",
+              message: "Please enter a valid Email address!",
             },
           ]}
         >
           <Input className="w-full" placeholder="Owner Email" />
         </Form.Item>
         <Form.Item
-          name="ownerPhone"
-          label="Owner Phone"
+          name="ownerPhoneNumber"
+          label="Owner Phone Number"
           rules={[{ validator }]}
         >
           <PhoneInput enableSearch />
