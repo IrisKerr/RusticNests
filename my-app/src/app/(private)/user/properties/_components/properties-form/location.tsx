@@ -7,10 +7,10 @@ function Location({
   currentStep,
   setCurrentStep,
   finalValues,
-  setfinalValues,
+  setFinalValues,
 }: PropertiesFormStepProps) {
   const onFinish = (values: any) => {
-    setfinalValues({ ...finalValues, location: values });
+    setFinalValues({ ...finalValues, location: values });
     setCurrentStep(currentStep + 1);
   };
 

@@ -11,16 +11,19 @@ export interface PropertiesFormStepProps {
   currentStep: number;
   setCurrentStep: (currentStep: number) => void;
   finalValues: any;
-  setfinalValues: () => void;
+  setFinalValues: (arg: string) => void;
 }
 
 function PropertiesForm() {
   const [currentStep, setCurrentStep] = React.useState(0);
-  const [finalValues, setfinalValues] = React.useState({
+  const [finalValues, setFinalValues] = React.useState({
     basic: {},
     location: {},
     amenities: {},
-    media: {},
+    media: {
+      newlyUploadedFiles: [],
+      images: [],
+    },
     contact: {},
   });
 
@@ -28,7 +31,7 @@ function PropertiesForm() {
     currentStep,
     setCurrentStep,
     finalValues,
-    setfinalValues,
+    setFinalValues,
   };
 
   const steps = [

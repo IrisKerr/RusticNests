@@ -7,10 +7,10 @@ function Basic({
   currentStep,
   setCurrentStep,
   finalValues,
-  setfinalValues,
+  setFinalValues,
 }: PropertiesFormStepProps) {
   const onFinish = (values: any) => {
-    setfinalValues({ ...finalValues, basic: values });
+    setFinalValues({ ...finalValues, basic: values });
     setCurrentStep(currentStep + 1);
   };
 

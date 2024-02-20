@@ -7,10 +7,10 @@ function Amenities({
   currentStep,
   setCurrentStep,
   finalValues,
-  setfinalValues,
+  setFinalValues,
 }: PropertiesFormStepProps) {
   const onFinish = (values: any) => {
-    setfinalValues({ ...finalValues, amenities: values });
+    setFinalValues({ ...finalValues, amenities: values });
     setCurrentStep(currentStep + 1);
   };
   return (
