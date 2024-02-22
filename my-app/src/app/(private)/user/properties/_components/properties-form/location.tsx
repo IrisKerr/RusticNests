@@ -33,7 +33,7 @@ function Location({
           label="Pincode"
           rules={[{ required: true, message: "Please enter a Pincode!" }]}
         >
-          <InputNumber className="w-full" />
+          <Input placeholder="Pincode" className="w-full" />
         </Form.Item>
         <Form.Item
           name="country"

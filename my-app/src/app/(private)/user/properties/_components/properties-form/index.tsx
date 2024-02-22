@@ -12,10 +12,14 @@ export interface PropertiesFormStepProps {
   setCurrentStep: (currentStep: number) => void;
   finalValues: any;
   setFinalValues: (arg: string) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
 function PropertiesForm() {
   const [currentStep, setCurrentStep] = React.useState(0);
+  const [isLoading, setisLoading] = React.useState(false);
+
   const [finalValues, setFinalValues] = React.useState({
     basic: {},
     location: {},
@@ -27,24 +31,22 @@ function PropertiesForm() {
     contact: {},
   });
 
-  const commonPropsforSetps: any = {
+  const commonPropsforSteps: any = {
     currentStep,
     setCurrentStep,
     finalValues,
     setFinalValues,
+    isLoading,
+    setisLoading,
   };
 
   const steps = [
-    { title: "Basic", content: <Basic {...commonPropsforSetps} /> },
-    { title: "Location", content: <Location {...commonPropsforSetps} /> },
-    { title: "Amenities", content: <Amenities {...commonPropsforSetps} /> },
-    { title: "Media", content: <Media {...commonPropsforSetps} /> },
-    { title: "Contact", content: <Contact {...commonPropsforSetps} /> },
+    { title: "Basic", content: <Basic {...commonPropsforSteps} /> },
+    { title: "Location", content: <Location {...commonPropsforSteps} /> },
+    { title: "Amenities", content: <Amenities {...commonPropsforSteps} /> },
+    { title: "Media", content: <Media {...commonPropsforSteps} /> },
+    { title: "Contact", content: <Contact {...commonPropsforSteps} /> },
   ];
-
-  useEffect(() => {
-    console.log(finalValues);
-  }, [finalValues]);
 
   return (
     <div>

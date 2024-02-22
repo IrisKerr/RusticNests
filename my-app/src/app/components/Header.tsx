@@ -11,18 +11,22 @@ interface HeaderProps {
 
 function Header({ currentUserData, menuToShow }: HeaderProps) {
   const router = useRouter();
-  console.log(currentUserData);
-  console.log(menuToShow);
+  //   console.log(currentUserData);
+  //   console.log(menuToShow);
   return (
     <div className="bg-primary p-2 flex justify-between items-center rounded-b">
-      <h1 className="text-2xl text-white font-bold">RusticNests</h1>
+      <h1
+        className="text-2xl text-white font-bold cursor-pointer"
+        onClick={() => router.push("/")}
+      >
+        RusticNests
+      </h1>
       <div className="bg-white py-2 px-5 rounded-sm flex items-center gap-5">
         <Dropdown
           menu={{
             items: menuToShow?.map((item: any) => ({
               label: item.name,
               onClick: () => {
-                console.log("clic");
                 router.push(item.path);
               },
             })),
