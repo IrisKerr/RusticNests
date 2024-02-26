@@ -1,3 +1,4 @@
+"use client";
 import PageTitle from "@/app/components/page-title";
 import React, { Suspense } from "react";
 import PropertiesTable from "./_components/properties-form/properties-table";

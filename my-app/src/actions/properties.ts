@@ -27,3 +27,14 @@ export const addProperty = async (property: any) => {
     console.error("An error occurred while adding the property:", error);
   }
 };
+
+export const findAllProperties = async () => {
+  try {
+    const properties = await prisma.property.findMany();
+    return {
+      data: properties,
+    };
+  } catch (error: any) {
+    console.error("An error occurred while requesting the properties", error);
+  }
+};
