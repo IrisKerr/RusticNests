@@ -30,7 +30,11 @@ export const addProperty = async (property: any) => {
 
 export const findAllProperties = async () => {
   try {
-    const properties = await prisma.property.findMany();
+    const properties = await prisma.property.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
     return {
       data: properties,
     };

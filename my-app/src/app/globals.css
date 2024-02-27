@@ -24,6 +24,13 @@ body {
   border-radius: 0.2rem;
 }
 
+// forms
+
 .ant-form-item {
   margin-bottom: 5px;
+}
+
+table {
+  border: 1px solid grey !important;
+  margin-top: 10px !important;
 }
