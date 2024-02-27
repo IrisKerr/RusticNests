@@ -1,5 +1,8 @@
+import Actions from "@/app/components/Actions";
 import { Property } from "@prisma/client";
-import { Table } from "antd";
+import { Button, Table } from "antd";
+import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
@@ -19,6 +22,20 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       title: "Status",
       dataIndex: "status",
       key: "status",
+    },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      render: (createdAt: Date) => {
+        return dayjs(createdAt).format("DD MMM YYYY HH:mm A");
+      },
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render(record: Property) {
+        return <Actions record={record} />;
+      },
     },
   ];
   return <Table dataSource={properties} columns={columns} rowKey="id" />;
