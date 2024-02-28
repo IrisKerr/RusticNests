@@ -42,3 +42,16 @@ export const findAllProperties = async () => {
     console.error("An error occurred while requesting the properties", error);
   }
 };
+
+export const findPropertyById = async (propertyId: string) => {
+  try {
+    const property = await prisma.property.findUnique({
+      where: {
+        id: propertyId,
+      },
+    });
+    return property;
+  } catch (error: any) {
+    console.error("An error occurred while requesting the properties", error);
+  }
+};

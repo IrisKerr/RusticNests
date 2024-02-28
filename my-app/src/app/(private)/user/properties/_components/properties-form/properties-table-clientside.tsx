@@ -1,8 +1,7 @@
 import Actions from "@/app/components/Actions";
 import { Property } from "@prisma/client";
-import { Button, Table } from "antd";
+import { Table } from "antd";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
@@ -33,8 +32,8 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
     {
       title: "Actions",
       dataIndex: "actions",
-      render(record: Property) {
-        return <Actions record={record} />;
+      render(text: any, record: Property) {
+        return <Actions recordId={record.id} />;
       },
     },
   ];

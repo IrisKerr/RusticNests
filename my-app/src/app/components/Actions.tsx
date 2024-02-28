@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 interface ActionsProps {
-  record: Property;
+  recordId: string;
 }
 
-function Actions({ record }: ActionsProps) {
+function Actions({ recordId }: ActionsProps) {
   const router = useRouter();
 
   return (
@@ -15,7 +15,7 @@ function Actions({ record }: ActionsProps) {
       <Button
         size="small"
         onClick={() =>
-          router.push(`/user/properties/edit-property/${record.id}`)
+          router.push(`/user/properties/edit-property/${recordId}`)
         }
       >
         <i className="ri-edit-2-line"></i>
