@@ -3,14 +3,16 @@ import { PropertiesFormStepProps } from ".";
 import { Button, Form, Input, InputNumber, Select, message } from "antd";
 import PhoneInput from "antd-phone-input";
 import { UploadfilesToFirebaseAndReturnUrls } from "@/helpers/upload-media";
-import { addProperty } from "@/actions/properties";
-import { useRouter } from "next/navigation";
+import { addProperty, editProperty } from "@/actions/properties";
+import { useParams, useRouter } from "next/navigation";
 
 function Contact({
   currentStep,
   setCurrentStep,
   finalValues,
+  isEdit = false,
 }: PropertiesFormStepProps) {
+  const { id } = useParams() as { id: string };
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const onFinish = async (values: any) => {
@@ -33,10 +35,16 @@ function Contact({
       };
       console.log(valuesAsPerDb);
       // Utiliser valuesAsPerDb comme argument pour addProperty
-      const response = await addProperty(valuesAsPerDb);
+      let response = null;
+      console.log("isEdit", isEdit);
+      if (isEdit) {
+        response = await editProperty(valuesAsPerDb, id);
+      } else {
+        response = await addProperty(valuesAsPerDb);
+      }
       setIsLoading(false);
-      message.success("Property added successfully");
-      console.log("createdProp", response?.data);
+      message.success(response?.message);
+      console.log("createdProp", response);
       router.push("/user/properties");
     } catch (error) {
       console.error("An error occurred:", error);
@@ -48,7 +56,7 @@ function Contact({
   return (
     <Form
       layout="vertical"
-      initialValues={finalValues.amenities}
+      initialValues={finalValues.contact}
       onFinish={onFinish}
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">

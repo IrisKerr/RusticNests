@@ -14,6 +14,7 @@ export interface PropertiesFormStepProps {
   setFinalValues: (arg: string) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  isEdit?: boolean;
 }
 
 function PropertiesForm({
@@ -44,6 +45,7 @@ function PropertiesForm({
     setFinalValues,
     isLoading,
     setisLoading,
+    isEdit,
   };
 
   const steps = [
