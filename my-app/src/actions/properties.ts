@@ -28,18 +28,24 @@ export const addProperty = async (property: any) => {
   }
 };
 
-export const findAllProperties = async () => {
+export const findAllPropertiesFromUser = async (user: any) => {
   try {
     const properties = await prisma.property.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      where: {
+        userId: user?.data?.id,
       },
     });
     return {
       data: properties,
     };
   } catch (error: any) {
-    console.error("An error occurred while requesting the properties", error);
+    console.error(
+      "An error occurred while requesting the user's properties",
+      error
+    );
   }
 };
 

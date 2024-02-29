@@ -1,26 +1,37 @@
 import prisma from "@/app/config/db";
 import React, { useEffect } from "react";
 import ClientSidePropertiesTable from "./properties-table-clientside";
-import { findAllProperties } from "@/actions/properties";
+import {
+  findAllProperties,
+  findAllPropertiesFromUser,
+} from "@/actions/properties";
 import { Property } from "@prisma/client";
+import { getCurrentUserFromMongoDB } from "@/actions/users";
 
 async function PropertiesTable() {
   const [properties, setProperties] = React.useState<Property[]>([]);
+  // const user = await getCurrentUserFromMongoDB();
 
   useEffect(() => {
-    const fetchProperties = async () => {
+    const fetchUserProperties = async (user: any) => {
       try {
-        const result = await findAllProperties();
+        const result = await findAllPropertiesFromUser(user);
         setProperties(result?.data || []);
       } catch (error) {
         console.error(
-          "An error occurred while requesting the properties",
+          "An error occurred while requesting the user's properties",
           error
         );
       }
     };
 
-    fetchProperties();
+    const fetchData = async () => {
+      const user = await getCurrentUserFromMongoDB();
+      console.log(user);
+      fetchUserProperties(user);
+    };
+
+    fetchData();
   }, []);
 
   return <ClientSidePropertiesTable properties={properties} />;
