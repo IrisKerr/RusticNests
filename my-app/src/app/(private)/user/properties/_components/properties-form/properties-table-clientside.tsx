@@ -12,7 +12,6 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
   const onDelete = async (id: string) => {
     try {
       setIsLoading(true);
-      console.log("execu");
       const response = await deleteProperty(id);
       if (response?.error) throw new Error(response.error);
       message.success(response?.message);
@@ -34,6 +33,11 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      render: (text: string) => (
+        <span>
+          {text} <span>-.€</span>
+        </span>
+      ),
     },
     { title: "Type", dataIndex: "type", key: "type" },
     {

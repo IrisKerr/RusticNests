@@ -21,7 +21,12 @@ function Actions({ recordId, onDelete }: ActionsProps) {
       >
         <i className="ri-edit-2-line"></i>
       </Button>
-      <Button size="small">
+      <Button
+        size="small"
+        onClick={() => {
+          router.push(`/user/properties/create-property?cloneFrom=${recordId}`);
+        }}
+      >
         <i className="ri-file-copy-line"></i>
       </Button>
       <Button
