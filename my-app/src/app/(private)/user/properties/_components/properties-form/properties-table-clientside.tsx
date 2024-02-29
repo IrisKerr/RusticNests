@@ -1,10 +1,29 @@
+import { deleteProperty } from "@/actions/properties";
 import Actions from "@/app/components/Actions";
+import Loader from "@/app/components/Loader";
 import { Property } from "@prisma/client";
-import { Table } from "antd";
+import { Table, message } from "antd";
 import dayjs from "dayjs";
 import React from "react";
 
 function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const onDelete = async (id: string) => {
+    try {
+      setIsLoading(true);
+      console.log("execu");
+      const response = await deleteProperty(id);
+      if (response?.error) throw new Error(response.error);
+      message.success(response?.message);
+      setIsLoading(false);
+    } catch (error: any) {
+      message.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const columns = [
     {
       title: "Name",
@@ -40,11 +59,19 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       title: "Actions",
       dataIndex: "actions",
       render(text: any, record: Property) {
-        return <Actions recordId={record.id} />;
+        return <Actions recordId={record.id} onDelete={onDelete} />;
       },
     },
   ];
-  return <Table dataSource={properties} columns={columns} rowKey="id" />;
+
+  return (
+    <Table
+      dataSource={properties}
+      columns={columns}
+      rowKey="id"
+      loading={isLoading}
+    />
+  );
 }
 
 export default ClientSidePropertiesTable;

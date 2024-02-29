@@ -73,3 +73,19 @@ export const editProperty = async (property: any, id: string) => {
     return { error: error.message };
   }
 };
+
+export const deleteProperty = async (id: string) => {
+  try {
+    await prisma.property.delete({
+      where: {
+        id: id,
+      },
+    });
+    revalidatePath("user/properties");
+    return {
+      message: "Property deleted successfully!",
+    };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+};

@@ -5,9 +5,10 @@ import React from "react";
 
 interface ActionsProps {
   recordId: string;
+  onDelete: (id: string) => void;
 }
 
-function Actions({ recordId }: ActionsProps) {
+function Actions({ recordId, onDelete }: ActionsProps) {
   const router = useRouter();
 
   return (
@@ -23,7 +24,12 @@ function Actions({ recordId }: ActionsProps) {
       <Button size="small">
         <i className="ri-file-copy-line"></i>
       </Button>
-      <Button size="small">
+      <Button
+        size="small"
+        onClick={() => {
+          onDelete(recordId);
+        }}
+      >
         <i className="ri-delete-bin-6-line"></i>
       </Button>
     </div>
