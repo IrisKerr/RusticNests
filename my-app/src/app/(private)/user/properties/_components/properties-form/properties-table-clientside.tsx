@@ -30,6 +30,13 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       },
     },
     {
+      title: "Updated At",
+      dataIndex: "updatedAt",
+      render: (updatedAt: Date) => {
+        return dayjs(updatedAt).format("DD MMM YYYY HH:mm A");
+      },
+    },
+    {
       title: "Actions",
       dataIndex: "actions",
       render(text: any, record: Property) {

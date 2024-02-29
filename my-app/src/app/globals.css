@@ -34,3 +34,8 @@ table {
   border: 1px solid grey !important;
   margin-top: 10px !important;
 }
+
+.ant-upload {
+  width: 172px !important;
+  height: 150px !important;
+}

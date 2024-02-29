@@ -19,11 +19,12 @@ function Contact({
     try {
       setIsLoading(true);
       const tempFinalValues = { ...finalValues, contact: values };
+      // handle media upload
       const tempMedia = tempFinalValues.media;
-      tempMedia.images = await UploadfilesToFirebaseAndReturnUrls(
+      const newImagesUrls = await UploadfilesToFirebaseAndReturnUrls(
         tempMedia.newlyUploadedFiles
       );
-      tempFinalValues.media = tempMedia;
+      tempMedia.images = [...tempMedia.images, ...newImagesUrls];
 
       // Construire l'objet valuesAsPerDb en fusionnant les différentes parties de tempFinalValues
       const valuesAsPerDb = {

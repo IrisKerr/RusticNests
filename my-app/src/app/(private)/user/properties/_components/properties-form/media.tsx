@@ -10,6 +10,19 @@ function Media({
   setFinalValues,
 }: PropertiesFormStepProps) {
   const [tempFiles, setTempFiles] = React.useState<any[]>([]);
+
+  const deletePreviousImages = (image: string) => {
+    let tempMedia = finalValues.media;
+    tempMedia.images = tempMedia.images.filter((img: string) => img !== image);
+    setFinalValues({
+      ...finalValues,
+      media: {
+        newlyUploadedFiles: tempFiles,
+        images: tempMedia.images,
+      },
+    });
+  };
+
   const onFinish = () => {
     setFinalValues({
       ...finalValues,
@@ -36,13 +49,20 @@ function Media({
               src={image}
               alt=""
               className="object-cover rounded"
-              width={40}
-              height={40}
-              placeholder="blur"
+              width={150}
+              height={110}
             />
-            <span className="text-red-500 underline cursor-pointer">
-              delete
-            </span>
+            <div className="flex gap-1 text-red-500 cursor-pointer">
+              <i className="ri-delete-bin-6-line"></i>
+              <span
+                className="underline"
+                onClick={() => {
+                  deletePreviousImages(image);
+                }}
+              >
+                delete
+              </span>
+            </div>
           </div>
         ))}
       </div>
