@@ -5,7 +5,7 @@ interface Props {}
 function Filters(props: Props) {
   const {} = props;
 
-  return <></>;
+  return <div>Filters</div>;
 }
 
 export default Filters;
