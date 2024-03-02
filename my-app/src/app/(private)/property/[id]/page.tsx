@@ -32,11 +32,11 @@ function PropertyPage({ params: { id } }: Props) {
       <PageTitle title={property.name} />
       {property.images && property.images.length > 0 && (
         <Image
-          className="object-cover w-full h-60 rounded-t"
+          className="object-cover w-800 h-500 rounded-t"
           src={property.images?.[0]}
           alt=""
           width={800}
-          height={300}
+          height={500}
         />
       )}
     </div>
