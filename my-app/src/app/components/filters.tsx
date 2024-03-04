@@ -1,11 +1,70 @@
+"use client";
+import {
+  furnishingTypes,
+  propertyCountries,
+  propertyStatuses,
+  propertyTypes,
+} from "@/constants";
+import { Button, Form, Modal, Select } from "antd";
+import { Input } from "postcss";
 import React from "react";
 
-interface Props {}
+function Filters() {
+  const [showFiltersModal, setShowFiltersModal] =
+    React.useState<boolean>(false);
 
-function Filters(props: Props) {
-  const {} = props;
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
 
-  return <div>Filters</div>;
+  return (
+    <>
+      <div className="flex items-center justify-between mx-2 my-4 p-4 border rounded-sm border-solid border-gray-300">
+        <div>
+          <span className="text-sm text-gray-500">No filters applied</span>
+        </div>
+        <div className="flex gap-5">
+          <Button>Clear</Button>
+          <Button type="primary" onClick={() => setShowFiltersModal(true)}>
+            Show Filters
+          </Button>
+        </div>
+      </div>
+      {showFiltersModal && (
+        <Modal
+          title={<h3 className="font-semibold text-primary">Select Filters</h3>}
+          open={showFiltersModal}
+          onCancel={() => setShowFiltersModal(false)}
+          centered
+          width={800}
+          footer={null}
+        >
+          <Form onFinish={onFinish} layout="vertical">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <Form.Item label="Property Type" name="type">
+                <Select options={propertyTypes} />
+              </Form.Item>
+              <Form.Item label="Furnishing" name="furnishing">
+                <Select options={furnishingTypes} />
+              </Form.Item>
+              <Form.Item label="Rent / Sale" name="status">
+                <Select options={propertyStatuses} />
+              </Form.Item>
+              <Form.Item label="Country" name="country">
+                <Select options={propertyCountries} />
+              </Form.Item>
+            </div>
+            <div className="mt-7 flex justify-end gap-5 items-center">
+              <Button onClick={() => setShowFiltersModal(false)}>Cancel</Button>
+              <Button htmlType="submit" type="primary">
+                Apply
+              </Button>
+            </div>
+          </Form>
+        </Modal>
+      )}
+    </>
+  );
 }
 
 export default Filters;

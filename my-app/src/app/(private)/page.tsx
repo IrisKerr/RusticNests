@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 
 export default async function Home() {
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-col justify-between">
       <Filters />
       <Suspense fallback={<Loader />}>
         <PropertiesData />

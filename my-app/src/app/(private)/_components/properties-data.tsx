@@ -42,7 +42,7 @@ async function PropertiesData() {
           className="m-1 lg:m-2 border rounded border-solid border-gray-200 overflow-hidden"
         >
           <Image
-            className="object-cover w-full h-60 rounded-t property-main-image"
+            className="object-cover w-full h-80 rounded-t property-main-image"
             src={property.images[0]}
             alt=""
             width={500}
