@@ -6,6 +6,7 @@ import { Property } from "@prisma/client";
 import { Carousel, Divider } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import QueryModal from "../_components/query-modal";
 
 interface Props {
   params: {
@@ -93,7 +94,10 @@ function PropertyPage({ params: { id } }: Props) {
               ))}
             </Carousel>
           )}
-          <div className="text-sm text-gray-600 py-4 text-justify">
+          <h3 className="text-l lg:text-xl font-bold text-primary">
+            {property.price} -.€ / {property.status}
+          </h3>
+          <div className="text-sm text-gray-600 py-1 text-justify">
             {property.description}
           </div>
         </div>
@@ -169,6 +173,7 @@ function PropertyPage({ params: { id } }: Props) {
                   value: property.ownerPhoneNumber,
                 })}
               </div>
+              <QueryModal propertyId={property.id} />
             </div>
           )}
         </div>
