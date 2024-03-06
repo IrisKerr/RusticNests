@@ -17,3 +17,23 @@ export const sendQuery = async (query: any) => {
     return { error: error.message };
   }
 };
+
+export const getUserQueries = async () => {
+  try {
+    const user = await getCurrentUserFromMongoDB();
+    const userId = user?.data?.id;
+    const queries = await prisma.query.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        property: true,
+      },
+    });
+    return {
+      queries,
+    };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+};

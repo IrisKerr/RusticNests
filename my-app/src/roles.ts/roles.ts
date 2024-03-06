@@ -15,6 +15,10 @@ export const userMenu = [
     name: "Subscriptions",
     path: "/user/subscriptions",
   },
+  {
+    name: "Queries",
+    path: "/user/queries",
+  },
 ];
 
 export const adminMenu = [
