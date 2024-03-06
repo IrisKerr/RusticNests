@@ -2,12 +2,17 @@ import { deleteProperty } from "@/actions/properties";
 import Actions from "@/app/components/Actions";
 import Loader from "@/app/components/Loader";
 import { Property } from "@prisma/client";
-import { Table, message } from "antd";
+import { Button, Table, message } from "antd";
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 import React from "react";
+import PropertyQueries from "./property-queries";
 
 function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [showQueries, setShowQueries] = React.useState<boolean>(false);
+  const [selectedProperty, setSelectedProperty] =
+    React.useState<Property | null>(null);
 
   const onDelete = async (id: string) => {
     try {
@@ -66,15 +71,41 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
         return <Actions recordId={record.id} onDelete={onDelete} />;
       },
     },
+    {
+      title: "Queries",
+      dataIndex: "queries",
+      render(text: any, record: Property) {
+        return (
+          <Button
+            size="small"
+            onClick={() => {
+              setShowQueries(true);
+              setSelectedProperty(record);
+            }}
+          >
+            View
+          </Button>
+        );
+      },
+    },
   ];
 
   return (
-    <Table
-      dataSource={properties}
-      columns={columns}
-      rowKey="id"
-      loading={isLoading}
-    />
+    <>
+      <Table
+        dataSource={properties}
+        columns={columns}
+        rowKey="id"
+        loading={isLoading}
+      />
+      {showQueries && (
+        <PropertyQueries
+          selectedProperty={selectedProperty}
+          setshowQueryModal={setShowQueries}
+          showQueriesModal={showQueries}
+        />
+      )}
+    </>
   );
 }
 

@@ -15,7 +15,7 @@ function UserQueriesTable({ queries }: { queries: Query[] }) {
       title: "Quote Amount",
       dataIndex: "quoteAmount",
       key: "quoteAmountKey",
-      render: (quoteAmount: number) => `${quoteAmount} -.€`,
+      render: (quoteAmount: number) => `${quoteAmount} €`,
     },
     {
       title: "Message",

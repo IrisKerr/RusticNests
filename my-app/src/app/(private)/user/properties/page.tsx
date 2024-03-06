@@ -16,7 +16,6 @@ function Properties() {
           path="/user/properties/create-property"
         />
       </div>
-      <Filters />
       <Suspense fallback={<Loader />}>
         <PropertiesTable />
       </Suspense>
