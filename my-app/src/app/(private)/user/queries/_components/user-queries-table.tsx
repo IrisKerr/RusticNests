@@ -30,12 +30,6 @@ function UserQueriesTable({ queries }: { queries: Query[] }) {
         return dayjs(createdAt).format("DD MMM YYYY hh:mm A");
       },
     },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "actionKey",
-      render: (action: string) => action,
-    },
   ];
 
   return (

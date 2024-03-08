@@ -37,3 +37,22 @@ export const getUserQueries = async () => {
     return { error: error.message };
   }
 };
+
+export const getQueriesByPropertyId = async (propertyId: string) => {
+  try {
+    const queries = await prisma.query.findMany({
+      where: {
+        propertyId: propertyId,
+      },
+      include: {
+        user: true,
+      },
+    });
+    return {
+      success: true,
+      data: queries,
+    };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+};
