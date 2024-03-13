@@ -1,4 +1,5 @@
 "use client";
+import { propertiesCountByUser } from "@/actions/properties";
 import PageTitle from "@/app/components/page-title";
 import { fetchMongoUser } from "@/helpers/fetch-user";
 import dayjs from "dayjs";
@@ -6,6 +7,9 @@ import React, { useEffect } from "react";
 
 function Account() {
   const [mongoUser, setMongoUser] = React.useState<{} | undefined>({});
+  const [propertiesCount, setPropertiesCount] = React.useState<
+    number | undefined
+  >(0);
 
   const getSectionTitle = (title: string) => {
     return (
@@ -25,26 +29,36 @@ function Account() {
     );
   };
 
-  useEffect(() => {
-    const fetchUserInfos = async () => {
-      try {
-        const mongoUser = await fetchMongoUser();
-        if (mongoUser !== undefined) {
-          setMongoUser(mongoUser);
-        }
-        console.log(mongoUser);
-      } catch (error) {
-        console.error("Error fetching user information:", error);
+  const fetchUserInfos = async () => {
+    try {
+      const mongoUser = await fetchMongoUser();
+      if (mongoUser !== undefined) {
+        setMongoUser(mongoUser);
       }
-    };
+      console.log(mongoUser);
+    } catch (error) {
+      console.error("Error fetching user information:", error);
+    }
+  };
 
+  const fetchUserPropertiesCount = async (userId: string) => {
+    try {
+      const properties = await propertiesCountByUser(userId);
+      setPropertiesCount(properties);
+    } catch (error) {
+      console.error("Error fetching user information:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchUserInfos();
+    if (mongoUser) fetchUserPropertiesCount(mongoUser?.id);
   }, []);
 
   return (
     <div>
       <PageTitle title="My Account" />
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mt-3">
         {getSectionTitle("Basic Details")}
       </div>
 
@@ -58,7 +72,15 @@ function Account() {
             dayjs(mongoUser?.createdAt).format("DD/MM/YYYY hh:mm A") || ""
           )}
         </div>
+        <div>
+          {getAttribute("Properties Posted", propertiesCount?.toString() || 0)}
+        </div>
       </div>
+
+      <div className="flex flex-col gap-5 mt-5">
+        {getSectionTitle("Subscription Details")}
+      </div>
+      <span className="text-sm">Not implemented yet.</span>
     </div>
   );
 }

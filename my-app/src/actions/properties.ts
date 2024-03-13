@@ -110,3 +110,19 @@ export const deleteProperty = async (id: string) => {
     return { error: error.message };
   }
 };
+
+export const propertiesCountByUser = async (userId: string) => {
+  try {
+    const property = await prisma.property.count({
+      where: {
+        userId: userId,
+      },
+    });
+    return property;
+  } catch (error: any) {
+    console.error(
+      "An error occurred while requesting the properties count",
+      error
+    );
+  }
+};
