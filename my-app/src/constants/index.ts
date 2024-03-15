@@ -49,3 +49,49 @@ export const furnishingTypes = [
   { value: "semi-furnished", label: "Semi-Furnished" },
   { value: "unfurnished", label: "Unfurnished" },
 ];
+
+export const subscriptionPlans = [
+  {
+    name: "Free",
+    price: 0,
+    propertiesLimit: 3,
+    imagesPerPropertyLimit: 3,
+    features: [
+      "Property Listing",
+      "Property Details",
+      "3 Images per Property",
+      "3 Properties Limit",
+      "Property Search",
+    ],
+  },
+  {
+    name: "Standard",
+    price: 10,
+    propertiesLimit: 5,
+    imagesPerPropertyLimit: 5,
+    features: [
+      "Property Listing",
+      "Property Details",
+      "5 Images per Property",
+      "5 Properties Limit",
+      "Property Search",
+      "24/7 Support",
+    ],
+  },
+  {
+    name: "Premium",
+    price: 25,
+    propertiesLimit: "unlimited",
+    imagesPerPropertyLimit: 15,
+    features: [
+      "Property Listing",
+      "Property Details",
+      "15 Images per Property",
+      "Unlimited Properties",
+      "Property Search",
+      "24/7 Support",
+      "AI Support",
+      "Personal Account Manager",
+    ],
+  },
+];
