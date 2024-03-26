@@ -23,7 +23,22 @@ model User {
   updatedAt DateTime @updatedAt
   properties  Property[]
   queries Query[]
+  subscriptions Subscription[]
 }
+
+// Subscription model
+
+model Subscription {
+  id String @id @default(cuid()) @map("_id")
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  plan Json
+  paymentId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Plan
 
 // Property model
 
