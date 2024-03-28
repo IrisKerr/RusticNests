@@ -6,6 +6,8 @@ import {
   PaymentElement,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
+import { saveSubscription } from "@/actions/subscriptions";
 
 interface Props {
   plan: any;
@@ -15,6 +17,7 @@ interface Props {
 
 function CheckoutForm({ plan, showCheckoutForm, setShowCheckoutForm }: Props) {
   const stripe = useStripe();
+  const router = useRouter();
   const elements = useElements();
   const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -36,6 +39,12 @@ function CheckoutForm({ plan, showCheckoutForm, setShowCheckoutForm }: Props) {
         message.error(result?.error?.message);
       } else {
         message.success("Payment successful");
+        await saveSubscription({
+          paymentId: result.paymentIntent.id,
+          plan,
+        });
+        message.success("Subscription purchased successfully");
+        router.push("/user/account");
       }
       setShowCheckoutForm(false);
     } catch (error: any) {
