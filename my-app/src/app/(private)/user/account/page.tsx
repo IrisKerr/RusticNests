@@ -1,5 +1,6 @@
 "use client";
 import { propertiesCountByUser } from "@/actions/properties";
+import { getUserSubscription } from "@/actions/subscriptions";
 import PageTitle from "@/app/components/page-title";
 import { fetchMongoUser } from "@/helpers/fetch-user";
 import dayjs from "dayjs";
@@ -10,6 +11,8 @@ function Account() {
   const [propertiesCount, setPropertiesCount] = React.useState<
     number | undefined
   >(0);
+  const [userSubscription, setUserSubscription] =
+    React.useState<any>(undefined);
 
   const getSectionTitle = (title: string) => {
     return (
@@ -50,9 +53,21 @@ function Account() {
     }
   };
 
+  const fetchUserSubscription = async (userId: string) => {
+    try {
+      const result = await getUserSubscription(userId);
+      console.log(result.subscription);
+      setUserSubscription(result.subscription);
+    } catch (error) {
+      console.error("Error fetching user subscription:", error);
+    }
+  };
   useEffect(() => {
     fetchUserInfos();
-    if (mongoUser) fetchUserPropertiesCount(mongoUser?.id);
+    if (mongoUser) {
+      fetchUserPropertiesCount(mongoUser?.id);
+      fetchUserSubscription(mongoUser?.id);
+    }
   }, []);
 
   return (
@@ -80,7 +95,20 @@ function Account() {
       <div className="flex flex-col gap-5 mt-5">
         {getSectionTitle("Subscription Details")}
       </div>
-      <span className="text-sm">Not implemented yet.</span>
+      {userSubscription ? (
+        <div className="grid cols-3 gap-5">
+          {getAttribute("Plan", userSubscription?.plan?.name || "")}
+          {getAttribute("Price", `${userSubscription?.plan?.price} €` || "")}
+          {getAttribute(
+            "Purchased on",
+            dayjs(userSubscription?.plan?.createdAt).format(
+              "DD/MM/YYYY hh:mm A"
+            ) || ""
+          )}
+        </div>
+      ) : (
+        <div className="text-center">No subscription found</div>
+      )}
     </div>
   );
 }

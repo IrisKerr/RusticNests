@@ -11,14 +11,25 @@ export const saveSubscription = async ({
   plan: any;
 }) => {
   try {
-    const user = await getCurrentUserFromMongoDB();
-    const payload: any = { paymentId, plan, UserId: user?.data?.id };
+    const user: any = await getCurrentUserFromMongoDB();
+    const payload: any = { paymentId, plan, userId: user?.data?.id };
     await prisma.subscription.create({
       data: payload,
     });
     return {
       message: "Subscription saved successfully",
     };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+};
+
+export const getUserSubscription = async (mongoUserId: string) => {
+  try {
+    const subscription = await prisma.subscription.findFirst({
+      where: { userId: mongoUserId },
+    });
+    return { subscription };
   } catch (error: any) {
     return { error: error.message };
   }
