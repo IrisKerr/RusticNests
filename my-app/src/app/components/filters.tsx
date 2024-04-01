@@ -6,15 +6,30 @@ import {
   propertyTypes,
 } from "@/constants";
 import { Button, Form, Modal, Select } from "antd";
-import { Input } from "postcss";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 function Filters() {
   const [showFiltersModal, setShowFiltersModal] =
     React.useState<boolean>(false);
 
+  const router = useRouter();
+  const pathname = usePathname();
+
   const onFinish = (values: any) => {
     console.log(values);
+
+    // Remove undefined or null values
+    const formattedData: any = {};
+    Object.keys(values).forEach((key) => {
+      if (values[key]) {
+        formattedData[key] = values[key];
+      }
+    });
+
+    // Construct query string
+    const queryString = new URLSearchParams(formattedData).toString();
+    router.push(`${pathname}?${queryString}`);
   };
 
   return (
@@ -24,7 +39,7 @@ function Filters() {
           <span className="text-sm text-gray-500">No filters applied</span>
         </div>
         <div className="flex gap-5">
-          <Button>Clear</Button>
+          <Button onClick={() => router.push(pathname)}>Clear</Button>
           <Button type="primary" onClick={() => setShowFiltersModal(true)}>
             Show Filters
           </Button>
@@ -55,7 +70,14 @@ function Filters() {
               </Form.Item>
             </div>
             <div className="mt-7 flex justify-end gap-5 items-center">
-              <Button onClick={() => setShowFiltersModal(false)}>Cancel</Button>
+              <Button
+                onClick={() => {
+                  setShowFiltersModal(false);
+                  router.push(pathname);
+                }}
+              >
+                Cancel
+              </Button>
               <Button htmlType="submit" type="primary">
                 Apply
               </Button>
