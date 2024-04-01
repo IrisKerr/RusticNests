@@ -9,7 +9,7 @@ import { Button, Form, Modal, Select } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
-function Filters() {
+function Filters({ searchParams }: { searchParams: any }) {
   const [showFiltersModal, setShowFiltersModal] =
     React.useState<boolean>(false);
 
@@ -30,6 +30,7 @@ function Filters() {
     // Construct query string
     const queryString = new URLSearchParams(formattedData).toString();
     router.push(`${pathname}?${queryString}`);
+    setShowFiltersModal(false);
   };
 
   return (
@@ -54,7 +55,11 @@ function Filters() {
           width={800}
           footer={null}
         >
-          <Form onFinish={onFinish} layout="vertical">
+          <Form
+            onFinish={onFinish}
+            layout="vertical"
+            initialValues={searchParams}
+          >
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               <Form.Item label="Property Type" name="type">
                 <Select options={propertyTypes} />

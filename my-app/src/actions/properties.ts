@@ -42,6 +42,24 @@ export const findAllProperties = async () => {
     console.error("An error occurred while requesting the properties", error);
   }
 };
+export const findPropertiesByFilters = async (params: any) => {
+  try {
+    const properties = await prisma.property.findMany({
+      where: params,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return {
+      data: properties,
+    };
+  } catch (error: any) {
+    console.error(
+      "An error occurred while requesting the filtered properties",
+      error
+    );
+  }
+};
 
 export const findAllPropertiesFromUser = async (user: any) => {
   try {

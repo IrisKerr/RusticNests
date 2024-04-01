@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-async-client-component */
 "use client";
-import { findAllProperties } from "@/actions/properties";
+import {
+  findAllProperties,
+  findPropertiesByFilters,
+} from "@/actions/properties";
 import { Property } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-async function PropertiesData() {
+async function PropertiesData({ searchParams }: { searchParams: any }) {
   const [properties, setProperties] = useState<Property[]>([]);
 
   function formatString(str: string) {
@@ -25,6 +28,11 @@ async function PropertiesData() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
+        if (searchParams) {
+          const result = await findPropertiesByFilters(searchParams);
+          setProperties(result?.data || []);
+          return;
+        }
         const result = await findAllProperties();
         setProperties(result?.data || []);
       } catch (error) {
