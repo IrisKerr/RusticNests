@@ -5,7 +5,7 @@ import {
   propertyStatuses,
   propertyTypes,
 } from "@/constants";
-import { Button, Form, Modal, Select } from "antd";
+import { Button, Form, Modal, Select, Tag } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
@@ -37,12 +37,40 @@ function Filters({ searchParams }: { searchParams: any }) {
     <>
       <div className="flex items-center justify-between mx-2 my-4 p-4 border rounded-sm border-solid border-gray-300">
         <div>
-          <span className="text-sm text-gray-500">No filters applied</span>
+          {Object.keys(searchParams).length === 0 ? (
+            <span className="text-sm text-gray-500">No filters applied</span>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {Object.keys(searchParams).map((key) => {
+                return (
+                  <div key={key} className="capitalize flex flex-col">
+                    <Tag
+                      onClose={() => {
+                        const newSearchParams = { ...searchParams };
+                        delete newSearchParams[key];
+                        // Construct query string
+                        const queryString = new URLSearchParams(
+                          newSearchParams
+                        ).toString();
+                        router.push(`${pathname}?${queryString}`);
+                      }}
+                      closeIcon
+                      closable
+                    >
+                      <span className="text-primary text-sm">
+                        {searchParams[key]}
+                      </span>
+                    </Tag>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
         <div className="flex gap-5">
           <Button onClick={() => router.push(pathname)}>Clear</Button>
           <Button type="primary" onClick={() => setShowFiltersModal(true)}>
-            Show Filters
+            Filters
           </Button>
         </div>
       </div>
