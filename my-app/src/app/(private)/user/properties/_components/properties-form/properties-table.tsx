@@ -8,14 +8,14 @@ import {
 import { Property } from "@prisma/client";
 import { getCurrentUserFromMongoDB } from "@/actions/users";
 
-async function PropertiesTable() {
+async function PropertiesTable({ searchParams }: { searchParams: any }) {
   const [properties, setProperties] = React.useState<Property[]>([]);
   // const user = await getCurrentUserFromMongoDB();
 
   useEffect(() => {
-    const fetchUserProperties = async (user: any) => {
+    const fetchUserProperties = async (user: any, params: any) => {
       try {
-        const result = await findAllPropertiesFromUser(user);
+        const result = await findAllPropertiesFromUser(user, params);
         setProperties(result?.data || []);
       } catch (error) {
         console.error(
@@ -28,11 +28,11 @@ async function PropertiesTable() {
     const fetchData = async () => {
       const user = await getCurrentUserFromMongoDB();
       console.log(user);
-      fetchUserProperties(user);
+      fetchUserProperties(user, searchParams);
     };
 
     fetchData();
-  }, []);
+  }, [searchParams]);
 
   return <ClientSidePropertiesTable properties={properties} />;
 }

@@ -61,7 +61,10 @@ export const findPropertiesByFilters = async (params: any) => {
   }
 };
 
-export const findAllPropertiesFromUser = async (user: any) => {
+export const findAllPropertiesFromUser = async (
+  user: any,
+  searchParams: any
+) => {
   try {
     const properties = await prisma.property.findMany({
       orderBy: {
@@ -69,6 +72,7 @@ export const findAllPropertiesFromUser = async (user: any) => {
       },
       where: {
         userId: user?.data?.id,
+        ...searchParams,
       },
     });
     return {
