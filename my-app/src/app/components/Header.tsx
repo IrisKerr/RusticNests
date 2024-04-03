@@ -3,6 +3,8 @@ import React from "react";
 import { UserButton } from "@clerk/nextjs";
 import { Button, Dropdown } from "antd";
 import { useRouter } from "next/navigation";
+import logo from "../../../public/rustic-logo.png";
+import Image from "next/image";
 
 interface HeaderProps {
   currentUserData: any;
@@ -14,14 +16,16 @@ function Header({ currentUserData, menuToShow }: HeaderProps) {
   //   console.log(currentUserData);
   //   console.log(menuToShow);
   return (
-    <div className="bg-primary p-2 flex justify-between items-center rounded-b">
-      <h1
+    <div className="bg-header px-10 flex justify-between items-center rounded-b">
+      <Image
         className="text-2xl text-white font-bold cursor-pointer"
         onClick={() => router.push("/")}
-      >
-        RusticNests
-      </h1>
-      <div className="bg-white py-2 px-5 rounded-sm flex items-center gap-5">
+        src={logo}
+        alt="logo"
+        width={120} // Largeur de l'image
+        height={120}
+      />
+      <div className="bg-white py-2 px-5 rounded-sm flex items-center gap-5 shadow-l">
         <Dropdown
           menu={{
             items: menuToShow?.map((item: any) => ({
@@ -33,7 +37,7 @@ function Header({ currentUserData, menuToShow }: HeaderProps) {
           }}
         >
           <Button type="link" className="text-primary">
-            {currentUserData?.username}
+            Menu
           </Button>
         </Dropdown>
         <UserButton afterSignOutUrl="/sign-in" signInUrl="/sign-in" />

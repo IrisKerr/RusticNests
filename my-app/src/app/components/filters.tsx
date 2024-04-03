@@ -35,7 +35,7 @@ function Filters({ searchParams }: { searchParams: any }) {
 
   return (
     <>
-      <div className="flex items-center justify-between mx-2 my-4 p-4 border rounded-sm border-solid border-gray-300">
+      <div className="flex items-center justify-between mx-2 my-4 p-4 border rounded-sm bg-white">
         <div>
           {Object.keys(searchParams).length === 0 ? (
             <span className="text-sm text-gray-500">No filters applied</span>
@@ -56,6 +56,7 @@ function Filters({ searchParams }: { searchParams: any }) {
                       }}
                       closeIcon
                       closable
+                      className="py-1 px-2"
                     >
                       <span className="text-primary text-sm">
                         {searchParams[key]}

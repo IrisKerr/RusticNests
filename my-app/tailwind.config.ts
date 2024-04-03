@@ -13,6 +13,7 @@ const config: Config = {
         primary: "#9D957F",
         secondary: "E3E3E3",
         secondaryLight: "F7F7F7",
+        header: "#cac5bcd3",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

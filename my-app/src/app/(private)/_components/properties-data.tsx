@@ -43,11 +43,11 @@ async function PropertiesData({ searchParams }: { searchParams: any }) {
     fetchProperties();
   }, []);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-col-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-col-3 ">
       {properties?.map((property, index) => (
         <div
           key={index}
-          className="m-1 lg:m-2 border rounded border-solid border-gray-200 overflow-hidden"
+          className="m-3 lg:m-5 bg-white border rounded shadow-lg border-solid border-gray-200 overflow-hidden"
         >
           <Image
             className="object-cover w-full h-80 rounded-t property-main-image"
