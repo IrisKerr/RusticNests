@@ -5,6 +5,7 @@ import {
   findPropertiesByFilters,
 } from "@/actions/properties";
 import { Property } from "@prisma/client";
+import { Button, Tag } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -56,21 +57,26 @@ async function PropertiesData({ searchParams }: { searchParams: any }) {
             width={500}
             height={200}
           />
-          <div className="p-3 flex flex-col">
+          <div className="p-4 flex flex-col">
             <span className="text-xl text-primary font-bold">
               {property.name}
             </span>
-            <span className="text-gray-700 text-xs">
+            <span className="text-gray-700 text-xs mt-2">
               {property.town}, {formatString(property.country)}
             </span>
           </div>
-          <div className="p-3 bg-gray-100 flex justify-between items-center">
-            <span className="text-primary text-l">{property.price} -.€</span>
+          <div className="p-4 flex justify-between items-center">
+            <span className="text-primary text-l">
+              {property.price} €
+              <Tag className="ml-2 p-1 px-3 text-xs bg-header rounded">
+                {property.status}
+              </Tag>
+            </span>
             <Link
               className="text-sm text-primary font-semibold"
               href={`property/${property.id}`}
             >
-              View Details
+              <Button>View Details</Button>
             </Link>
           </div>
         </div>
