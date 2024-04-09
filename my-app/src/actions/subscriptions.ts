@@ -12,7 +12,18 @@ export const saveSubscription = async ({
 }) => {
   try {
     const user: any = await getCurrentUserFromMongoDB();
-    const payload: any = { paymentId, plan, userId: user?.data?.id };
+    const userId = user?.data?.id;
+    const existingSubscription = await prisma.subscription.findFirst({
+      where: { userId: userId },
+    });
+    // If an existing subscription is found, delete it
+    if (existingSubscription) {
+      await prisma.subscription.delete({
+        where: { id: existingSubscription.id },
+      });
+    }
+    // then, save the new subscription
+    const payload: any = { paymentId, plan, userId: userId };
     await prisma.subscription.create({
       data: payload,
     });

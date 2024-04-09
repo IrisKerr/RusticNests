@@ -101,9 +101,8 @@ function Account() {
           {getAttribute("Price", `${userSubscription?.plan?.price} €` || "")}
           {getAttribute(
             "Purchased on",
-            dayjs(userSubscription?.plan?.createdAt).format(
-              "DD/MM/YYYY hh:mm A"
-            ) || ""
+            dayjs(userSubscription?.createdAt).format("DD/MM/YYYY hh:mm A") ||
+              ""
           )}
         </div>
       ) : (
