@@ -38,7 +38,6 @@ function Account() {
       if (mongoUser !== undefined) {
         setMongoUser(mongoUser);
       }
-      console.log(mongoUser);
     } catch (error) {
       console.error("Error fetching user information:", error);
     }
@@ -56,19 +55,23 @@ function Account() {
   const fetchUserSubscription = async (userId: string) => {
     try {
       const result = await getUserSubscription(userId);
-      console.log(result.subscription);
-      setUserSubscription(result.subscription);
+      setUserSubscription(result?.subscription);
     } catch (error) {
       console.error("Error fetching user subscription:", error);
     }
   };
   useEffect(() => {
+    setUserSubscription(undefined);
+    setMongoUser(undefined);
     fetchUserInfos();
-    if (mongoUser) {
-      fetchUserPropertiesCount(mongoUser?.id);
-      fetchUserSubscription(mongoUser?.id);
-    }
   }, []);
+
+  useEffect(() => {
+    if (mongoUser) {
+      fetchUserPropertiesCount(mongoUser.id);
+      fetchUserSubscription(mongoUser.id);
+    }
+  }, [mongoUser]);
 
   return (
     <div>
@@ -106,7 +109,9 @@ function Account() {
           )}
         </div>
       ) : (
-        <div className="text-center">No subscription found</div>
+        <div className="text-sm mt-5 text-gray-700">
+          No subscription found. You are on a free plan.
+        </div>
       )}
     </div>
   );

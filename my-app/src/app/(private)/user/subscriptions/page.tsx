@@ -33,11 +33,16 @@ function SubscriptionsPage() {
   };
 
   useEffect(() => {
+    setUserSubscription(undefined);
+    setMongoUser(undefined);
     fetchUserInfos();
+  }, []);
+
+  useEffect(() => {
     if (mongoUser) {
       fetchUserSubscription(mongoUser?.id);
     }
-  }, []);
+  }, [mongoUser]);
 
   return (
     <div>
