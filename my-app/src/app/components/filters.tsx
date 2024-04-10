@@ -35,7 +35,7 @@ function Filters({ searchParams }: { searchParams: any }) {
 
   return (
     <>
-      <div className="flex items-center justify-between mx-2 my-4 p-4 border rounded-sm bg-white">
+      <div className="flex items-center justify-between my-4 p-4 border rounded-sm bg-white">
         <div>
           {Object.keys(searchParams).length === 0 ? (
             <span className="text-sm text-gray-500">No filters applied</span>
