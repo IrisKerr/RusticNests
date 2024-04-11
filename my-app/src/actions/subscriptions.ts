@@ -45,3 +45,21 @@ export const getUserSubscription = async (mongoUserId: string) => {
     return { error: error.message };
   }
 };
+
+export const cancelSubscription = async (mongoUserId: string) => {
+  try {
+    const subscription = await prisma.subscription.findFirst({
+      where: { userId: mongoUserId },
+    });
+    if (subscription) {
+      await prisma.subscription.delete({
+        where: { id: subscription.id },
+      });
+    }
+    return {
+      message: "Subscription cancelled successfully",
+    };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+};

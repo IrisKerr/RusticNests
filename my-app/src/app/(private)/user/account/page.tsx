@@ -1,8 +1,12 @@
 "use client";
 import { propertiesCountByUser } from "@/actions/properties";
-import { getUserSubscription } from "@/actions/subscriptions";
+import {
+  cancelSubscription,
+  getUserSubscription,
+} from "@/actions/subscriptions";
 import PageTitle from "@/app/components/page-title";
 import { fetchMongoUser } from "@/helpers/fetch-user";
+import { Button, Modal, message } from "antd";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 
@@ -13,6 +17,7 @@ function Account() {
   >(0);
   const [userSubscription, setUserSubscription] =
     React.useState<any>(undefined);
+  const [showQueryModal, setshowQueryModal] = React.useState(false);
 
   const getSectionTitle = (title: string) => {
     return (
@@ -60,6 +65,16 @@ function Account() {
       console.error("Error fetching user subscription:", error);
     }
   };
+
+  const cancelUserSubscription = async (userId: string) => {
+    try {
+      const response = await cancelSubscription(userId);
+      message.success(response?.message);
+    } catch (error) {
+      console.error("Error cancelling user subscription:", error);
+    }
+  };
+
   useEffect(() => {
     setUserSubscription(undefined);
     setMongoUser(undefined);
@@ -106,6 +121,36 @@ function Account() {
             "Purchased on",
             dayjs(userSubscription?.createdAt).format("DD/MM/YYYY hh:mm A") ||
               ""
+          )}
+          <Button
+            className="max-w-[200px] inline-block"
+            onClick={() => setshowQueryModal(true)}
+          >
+            Cancel Subscription
+          </Button>
+          {showQueryModal && (
+            <Modal onCancel={() => setshowQueryModal(false)} open footer={null}>
+              <div className="text-sm">
+                Are you sure to cancel your Subscription ?<br /> This is an
+                irreversible operation.
+              </div>
+              <div className="mt-7 flex gap-3 justify-end">
+                <Button
+                  onClick={() => {
+                    setshowQueryModal(false);
+                    cancelUserSubscription(mongoUser?.userId);
+                    setTimeout(() => {
+                      setUserSubscription(null);
+                    }, 2000);
+                  }}
+                >
+                  Cancel My Subscription
+                </Button>
+                <Button type="primary" onClick={() => setshowQueryModal(false)}>
+                  Close
+                </Button>
+              </div>
+            </Modal>
           )}
         </div>
       ) : (
