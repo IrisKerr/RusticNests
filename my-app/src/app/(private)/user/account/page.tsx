@@ -8,9 +8,11 @@ import PageTitle from "@/app/components/page-title";
 import { fetchMongoUser } from "@/helpers/fetch-user";
 import { Button, Modal, message } from "antd";
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 function Account() {
+  const router = useRouter();
   const [mongoUser, setMongoUser] = React.useState<{} | undefined>({});
   const [propertiesCount, setPropertiesCount] = React.useState<
     number | undefined
@@ -91,6 +93,7 @@ function Account() {
   return (
     <div>
       <PageTitle title="My Account" />
+
       <div className="flex flex-col gap-5 mt-3">
         {getSectionTitle("Basic Details")}
       </div>
@@ -123,7 +126,7 @@ function Account() {
               ""
           )}
           <Button
-            className="max-w-[200px] inline-block"
+            className="md:max-w-[200px] inline-block"
             onClick={() => setshowQueryModal(true)}
           >
             Cancel Subscription
@@ -154,8 +157,16 @@ function Account() {
           )}
         </div>
       ) : (
-        <div className="text-sm mt-5 text-gray-700">
-          No subscription found. You are on a free plan.
+        <div className="mt-5 text-gray-700 flex flex-col">
+          <div className="text-sm">
+            No subscription found. You are on a free plan.
+          </div>
+          <Button
+            className="md:max-w-[200px] inline-block my-5"
+            onClick={() => router.push("/user/subscriptions")}
+          >
+            Choose a subscription
+          </Button>
         </div>
       )}
     </div>

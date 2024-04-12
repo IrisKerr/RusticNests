@@ -33,7 +33,7 @@ function SubscriptionsPage() {
   };
 
   useEffect(() => {
-    setUserSubscription(undefined);
+    setUserSubscription(null);
     setMongoUser(undefined);
     fetchUserInfos();
   }, []);
@@ -50,9 +50,11 @@ function SubscriptionsPage() {
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {subscriptionPlans.map((plan, index) => {
-            let isSelected = userSubscription?.plan?.name === plan.name;
+            let isSelected = false;
             if (!userSubscription) {
-              isSelected = userSubscription?.plan?.name === "Free";
+              isSelected = plan.name === "Free";
+            } else {
+              isSelected = userSubscription.plan.name === plan.name;
             }
 
             return (
