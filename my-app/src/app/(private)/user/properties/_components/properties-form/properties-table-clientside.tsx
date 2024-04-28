@@ -4,9 +4,9 @@ import Loader from "@/app/components/Loader";
 import { Property } from "@prisma/client";
 import { Button, Table, message } from "antd";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
 import React from "react";
 import PropertyQueries from "./property-queries";
+import Link from "next/link";
 
 function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -33,6 +33,9 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      render: (text: any, record: Property) => (
+        <Link href={`/property/${record.id}`}>{text}</Link>
+      ),
     },
     {
       title: "Price",

@@ -61,3 +61,8 @@ table {
 .ant-dropdown-menu {
   width: 165px;
 }
+
+.ant-table-cell a {
+  color: #6b6656 !important;
+  font-weight: 600;
+}
