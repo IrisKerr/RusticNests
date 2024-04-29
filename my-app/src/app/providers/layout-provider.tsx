@@ -17,6 +17,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 
   const pathname = usePathname();
   const isPublicRoute = ["sign-in", "sign-up"].includes(pathname.split("/")[1]);
+  const isAdminRoute = pathname.split("/")[1] === "admin";
 
   const getCurrentUser = () => {
     setisLoading(true);
@@ -41,23 +42,33 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    if (!isPublicRoute) getCurrentUser();
-  }, [isPublicRoute]);
+    getCurrentUser();
+  }, [isPublicRoute, isAdminRoute]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  // isPublicRoute => sign-in & sign-up : permet de rendre le formulaire de connexion
+  if (isPublicRoute) {
+    return <div>{children}</div>;
+  }
+
+  if (isAdminRoute && !currentUserData?.isAdmin) {
+    return (
+      <div className="lg:px-20 px-5">
+        <Header currentUserData={currentUserData} menuToShow={menuToShow} />
+        <div className="py-5 lg:px-20 px-5 text-center text-gray-600">
+          You are not authorized to access this page.
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      {isPublicRoute ? (
-        <>
-          {isLoading && <Loader />}
-          {!isLoading && <div>{children}</div>}
-        </>
-      ) : (
-        <div className="lg:px-20 px-5">
-          <Header currentUserData={currentUserData} menuToShow={menuToShow} />
-          {isLoading && <Loader />}
-          {!isLoading && <div className="py-5">{children}</div>}
-        </div>
-      )}
+    <div className="lg:px-20 px-5">
+      <Header currentUserData={currentUserData} menuToShow={menuToShow} />
+      <div className="py-5">{children}</div>
     </div>
   );
 }
