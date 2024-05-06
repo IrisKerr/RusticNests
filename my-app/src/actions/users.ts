@@ -41,3 +41,21 @@ export const getCurrentUserFromMongoDB = async () => {
     };
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+    return {
+      data: users,
+    };
+  } catch (error: any) {
+    console.log(error);
+    return {
+      error: error.message,
+    };
+  }
+};
