@@ -49,6 +49,9 @@ export const findPropertiesByFilters = async (params: any) => {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        user: true,
+      },
     });
     return {
       data: properties,
@@ -73,6 +76,9 @@ export const findAllPropertiesFromUser = async (
       where: {
         userId: user?.data?.id,
         ...searchParams,
+      },
+      include: {
+        user: true,
       },
     });
     return {

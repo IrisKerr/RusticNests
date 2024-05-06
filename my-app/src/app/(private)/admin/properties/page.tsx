@@ -32,7 +32,7 @@ function AdminPropertiesPage({ searchParams }: { searchParams: string }) {
     <>
       <PageTitle title="Manage Properties" />
       <Filters searchParams={searchParams} />
-      <ClientSidePropertiesTable properties={properties} />
+      <ClientSidePropertiesTable properties={properties} fromAdmin />
     </>
   );
 }

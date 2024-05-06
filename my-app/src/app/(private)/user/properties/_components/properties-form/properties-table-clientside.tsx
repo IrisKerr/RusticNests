@@ -8,7 +8,13 @@ import React from "react";
 import PropertyQueries from "./property-queries";
 import Link from "next/link";
 
-function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
+function ClientSidePropertiesTable({
+  properties,
+  fromAdmin = false,
+}: {
+  properties: Property[];
+  fromAdmin: boolean;
+}) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [showQueries, setShowQueries] = React.useState<boolean>(false);
   const [selectedProperty, setSelectedProperty] =
@@ -28,9 +34,9 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
     }
   };
 
-  const columns = [
+  const columns: any = [
     {
-      title: "Name",
+      title: "Property Name",
       dataIndex: "name",
       key: "name",
       render: (text: any, record: Property) => (
@@ -92,6 +98,18 @@ function ClientSidePropertiesTable({ properties }: { properties: Property[] }) {
       },
     },
   ];
+
+  // On Admin Page, show User column
+  if (fromAdmin) {
+    columns.unshift({
+      title: "User",
+      dataIndex: "User",
+      key: "user",
+      render(value: any, record: any) {
+        return <div className="flex gap-5">{record.user?.username}</div>;
+      },
+    });
+  }
 
   return (
     <>
